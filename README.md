@@ -1,1 +1,0 @@
-# ipso-knowledge-base

@@ -1,6 +1,0 @@
-@ipso_knowledge_base_HostAddress = http://localhost:5022
-
-GET {{ipso_knowledge_base_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

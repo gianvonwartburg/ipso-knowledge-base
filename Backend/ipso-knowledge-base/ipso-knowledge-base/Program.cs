@@ -1,5 +1,6 @@
 using ipso_knowledge_base.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +11,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Inject DbContext Klasse, damit es in Controller injected werden kann
-builder.Services.AddDbContext<KnowledgeBaseDbContext>(options => options.UseInMemoryDatabase("KnowledgeBaseDB"));
+//Inject DbContext with inMemoryDB
+//builder.Services.AddDbContext<KnowledgeBaseDbContext>(options => options.UseInMemoryDatabase("KnowledgeBaseDB"));
+
+//Inject DBContext with SQL Server
+builder.Services.AddDbContext<KnowledgeBaseDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
@@ -23,6 +28,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//TODO only allow Origin --> unterschiedliche URL Calls allowen hier
+app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
 app.UseAuthorization();
 

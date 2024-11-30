@@ -1,9 +1,0 @@
-<h1 class="text-3xl font-bold underline">
-  Hello World
-</h1>
-
-@if(entries$ | async; as entries) {
-  @for(item of entries; track $index) {
-    <p>{{item.title}}</p>
-  }
-}

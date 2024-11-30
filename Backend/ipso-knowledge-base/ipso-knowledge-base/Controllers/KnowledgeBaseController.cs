@@ -29,6 +29,8 @@ namespace ipso_knowledge_base.Controllers
         [HttpPost]
         public IActionResult AddLinkEntry(LinkEntryDTO dto)
         {
+            if (dto == null) return BadRequest("Invalid data.");
+
             //DTO zu Model umwandeln
             var linkEntryModel = new LinkEntry
             {
